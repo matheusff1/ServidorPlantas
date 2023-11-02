@@ -1,15 +1,14 @@
 package servidor;
 
-import com.mongodb.client.*;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.ServerApi;
 import com.mongodb.ServerApiVersion;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.*;
+import netscape.javascript.JSObject;
 import org.bson.Document;
-import com.mongodb.client.MongoCollection;
+
+import java.util.ArrayList;
 
 public class ConectaMongo {
     private static final String URL_CONEXAO = "mongodb+srv://juliano:juliano777@clustera.p1mjddc.mongodb.net/?retryWrites=true&w=majority";
@@ -27,13 +26,15 @@ public class ConectaMongo {
 
     private static final MongoDatabase appDb = mongoClient.getDatabase(NOME_BANCO_DADOS);
 
-    public static void salvarProduto(Object obj){
+    public static void salvarProduto(Produto obj){
         MongoCollection<Document> produtos = appDb.getCollection("produtos");
         produtos.insertOne(new Document(obj.toString(),obj.hashCode()));
     }
 
-    public static void salvarVendedor(Object obj){
+    public static void salvarVendedor(Vendedor obj){
         MongoCollection<Document> vendedores = appDb.getCollection("vendedores");
         vendedores.insertOne(new Document(obj.toString(),obj.hashCode()));
     }
+
+
 }
