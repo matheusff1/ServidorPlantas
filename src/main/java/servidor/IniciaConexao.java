@@ -43,10 +43,12 @@ public class IniciaConexao extends Thread{
             }
         }
         try {
+            assert conexao != null;
             PrintWriter escrita = new  PrintWriter(conexao.getOutputStream());//transmissor de string
             escrita.println("conexao interrompida");
             escrita.flush();
             conexao.close();
+            this.morre();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

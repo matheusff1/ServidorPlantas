@@ -9,8 +9,8 @@ import java.util.concurrent.Semaphore;
 
 public class Comunicacao
 {
-    private Socket             conexao;
-    private ObjectInputStream  receptor;
+    private Socket conexao;
+    private ObjectInputStream receptor;
     private ObjectOutputStream transmissor;
 
     public Comunicacao (Socket             conexao,
@@ -50,13 +50,12 @@ public class Comunicacao
 
             Object ret =null;
             ret = receptor.readObject();
-            if (ret instanceof Vendedor) return ((Vendedor) ret).clone();
-            else if (ret instanceof Produto) return ((Produto) ret).clone();
+            if (ret instanceof Vendedor) return (((Vendedor) ret).clone());
+            else if (ret instanceof Produto) return (((Produto) ret).clone());
             else return null;
 
         } catch (CloneNotSupportedException | IOException | ClassNotFoundException e) {
             throw new Exception("Erro ocorrido em: " + e.getMessage());
-            return null;
         }
     }
 

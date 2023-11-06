@@ -12,10 +12,10 @@ public class ExecutaTarefas extends Thread{
         if (conexao == null) throw new Exception("Conexao nula");
         this.conexao = conexao;
     }
-    public void run(){
+    public void run() {
         ObjectInputStream receptor = null;
         ObjectOutputStream transmissor = null;
-        Comunicacao trabalhador=null;
+        Comunicacao trabalhador = null;
         try {
             receptor = new ObjectInputStream(this.conexao.getInputStream());
         } catch (IOException e) {
@@ -27,11 +27,11 @@ public class ExecutaTarefas extends Thread{
             throw new RuntimeException(e);
         }
         try {
-            trabalhador = new Comunicacao(this.conexao,receptor,transmissor);
+            trabalhador = new Comunicacao(this.conexao, receptor, transmissor);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        Object recebido =null;
+        Object recebido = null;
         try {
             recebido = trabalhador.cloneObjetoRecebido();
         } catch (Exception e) {
@@ -39,8 +39,24 @@ public class ExecutaTarefas extends Thread{
         }
         if (recebido instanceof Vendedor) ConectaMongo.salvarVendedor((Vendedor) recebido);
         else if (recebido instanceof Produto) ConectaMongo.salvarProduto((Produto) recebido);
+        else if (recebido instanceof String) {
+            if (recebido.toString().equals("VENDEDORES")) {
+                try {
+                    trabalhador.enviar(ConectaMongo.buscarVendedores());
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            } else if (recebido.toString().equals("PRODUTOS")) {
+                try {
+                    trabalhador.enviar(ConectaMongo.buscarProdutos());
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        } else {
+            Thread.yield();
 
-
+        }
     }
 
 

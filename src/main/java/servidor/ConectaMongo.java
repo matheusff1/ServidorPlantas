@@ -9,6 +9,7 @@ import netscape.javascript.JSObject;
 import org.bson.Document;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ConectaMongo {
     private static final String URL_CONEXAO = "mongodb+srv://juliano:juliano777@clustera.p1mjddc.mongodb.net/?retryWrites=true&w=majority";
@@ -26,14 +27,40 @@ public class ConectaMongo {
 
     private static final MongoDatabase appDb = mongoClient.getDatabase(NOME_BANCO_DADOS);
 
+    private static  final MongoCollection<Document> produtos  = appDb.getCollection("produtos");
+    private static  final MongoCollection<Document> vendedores  = appDb.getCollection("vendedores");
     public static void salvarProduto(Produto obj){
-        MongoCollection<Document> produtos = appDb.getCollection("produtos");
         produtos.insertOne(new Document(obj.toString(),obj.hashCode()));
     }
 
     public static void salvarVendedor(Vendedor obj){
-        MongoCollection<Document> vendedores = appDb.getCollection("vendedores");
         vendedores.insertOne(new Document(obj.toString(),obj.hashCode()));
+    }
+
+    public static ArrayList<Document> buscarVendedores( ) {
+        ArrayList<Document> listaElementos = new ArrayList<>();
+
+        try (MongoCursor<Document> cursor = vendedores.find().iterator()) {
+            while (cursor.hasNext()) {
+                Document elemento = cursor.next();
+                listaElementos.add(elemento);
+            }
+        }
+
+        return listaElementos;
+    }
+
+    public static ArrayList<Document> buscarProdutos( ) {
+        ArrayList<Document> listaElementos = new ArrayList<>();
+
+        try (MongoCursor<Document> cursor = vendedores.find().iterator()) {
+            while (cursor.hasNext()) {
+                Document elemento = cursor.next();
+                listaElementos.add(elemento);
+            }
+        }
+
+        return listaElementos;
     }
 
 
