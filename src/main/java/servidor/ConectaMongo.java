@@ -29,9 +29,7 @@ public class ConectaMongo {
 
     private static  final MongoCollection<Document> produtos  = appDb.getCollection("produtos");
     private static  final MongoCollection<Document> vendedores  = appDb.getCollection("vendedores");
-    public static void salvarProduto(Produto obj){
-        produtos.insertOne(new Document(obj.toString(),obj.hashCode()));
-    }
+
 
     public static void salvarVendedor(Vendedor vendedor) {
         Document documentoVendedor = new Document()
