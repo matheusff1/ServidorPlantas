@@ -33,30 +33,48 @@ public class ConectaMongo {
         produtos.insertOne(new Document(obj.toString(),obj.hashCode()));
     }
 
-    public static void salvarVendedor(Vendedor obj){
-        vendedores.insertOne(new Document(obj.toString(),obj.hashCode()));
+    public static void salvarVendedor(Vendedor vendedor) {
+        Document documentoVendedor = new Document()
+                .append("nome", vendedor.getNome())
+                .append("email", vendedor.getEmail())
+                .append("senha", vendedor.getSenha())
+                .append("telefone", vendedor.getTelefone())
+                .append("local", vendedor.getLocal())
+                .append("fotoUri", vendedor.getFotoUri());
+
+        vendedores.insertOne(documentoVendedor);
     }
 
-    public static ArrayList<Document> buscarVendedores( ) {
-        ArrayList<Document> listaElementos = new ArrayList<>();
+    public static ArrayList<Vendedor> buscarVendedores( ) {
+        ArrayList<Vendedor> listaVendedores = new ArrayList<>();
 
         try (MongoCursor<Document> cursor = vendedores.find().iterator()) {
             while (cursor.hasNext()) {
-                Document elemento = cursor.next();
-                listaElementos.add(elemento);
+                Document documentoVendedor = cursor.next();
+
+                Vendedor vendedor = new Vendedor(
+                        documentoVendedor.getString("nome"),
+                        documentoVendedor.getString("email"),
+                        documentoVendedor.getString("senha"),
+                        documentoVendedor.getString("telefone"),
+                        documentoVendedor.getString("local"),
+                        documentoVendedor.getString("fotoUri")
+                );
+                listaVendedores.add(vendedor);
             }
         }
 
-        return listaElementos;
+        return listaVendedores;
     }
 
-    public static ArrayList<Document> buscarProdutos( ) {
-        ArrayList<Document> listaElementos = new ArrayList<>();
+    public static ArrayList<Produto> buscarProdutos( ) {
+        ArrayList<Produto> listaElementos = new ArrayList<>();
 
         try (MongoCursor<Document> cursor = vendedores.find().iterator()) {
             while (cursor.hasNext()) {
                 Document elemento = cursor.next();
-                listaElementos.add(elemento);
+
+                listaElementos.add(new Produto(elemento.getString("nome")));
             }
         }
 

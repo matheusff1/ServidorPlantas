@@ -1,6 +1,6 @@
 package servidor;
 
-public class Produto {
+public class Produto implements Cloneable{
     private String nome;
 
     public String getNome() {

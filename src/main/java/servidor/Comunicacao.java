@@ -54,7 +54,7 @@ public class Comunicacao
             else if (ret instanceof Produto) return (((Produto) ret).clone());
             else return null;
 
-        } catch (CloneNotSupportedException | IOException | ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             throw new Exception("Erro ocorrido em: " + e.getMessage());
         }
     }
