@@ -68,7 +68,7 @@ public class ConectaMongo {
     public static ArrayList<Produto> buscarProdutos( ) {
         ArrayList<Produto> listaElementos = new ArrayList<>();
 
-        try (MongoCursor<Document> cursor = vendedores.find().iterator()) {
+        try (MongoCursor<Document> cursor = produtos.find().iterator()) {
             while (cursor.hasNext()) {
                 Document elemento = cursor.next();
 
