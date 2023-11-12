@@ -43,6 +43,13 @@ public class ConectaMongo {
         vendedores.insertOne(documentoVendedor);
     }
 
+    public static void salvarProduto(Produto produto) {
+        Document documentoVendedor = new Document()
+                .append("nome", produto.getNome());
+
+        produtos.insertOne(documentoVendedor);
+    }
+
     public static ArrayList<Vendedor> buscarVendedores( ) {
         ArrayList<Vendedor> listaVendedores = new ArrayList<>();
 
