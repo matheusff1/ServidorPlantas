@@ -55,7 +55,7 @@ public class Comunicacao
             else return null;
 
         } catch (IOException | ClassNotFoundException e) {
-            throw new Exception("Erro ocorrido em: " + e.getMessage());
+            throw new Exception("Erro ocorrido em: " + e.getMessage()+e.getClass());
         }
     }
 

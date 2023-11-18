@@ -7,14 +7,15 @@ import java.util.Locale;
 
 public class Servidor {
 
-    private static final int PORTA = 7777;
-    public static void main(String[] args) {
+    private static final int PORTA = 7577;
+    public static void main(String[] args) throws Exception {
+        BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
+        int porta = Servidor.PORTA;
+        IniciaConexao PABLO = new IniciaConexao(porta);
+        PABLO.start();
         while (true) {
             try {
-                BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
-                int porta = Servidor.PORTA;
-                IniciaConexao PABLO = new IniciaConexao(porta);
-                PABLO.start();
+
                 System.out.println("O servidor logado, digite sair para deligá-lo.");
                 String texto =teclado.readLine();
                 if(texto.equalsIgnoreCase("sair")){

@@ -35,12 +35,14 @@ public class IniciaConexao extends Thread{
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+            ExecutaTarefas junin = null;
             try {
-                ExecutaTarefas junin = new ExecutaTarefas(conexao);
-                junin.start();
+                junin = new ExecutaTarefas(conexao);
+
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
+            junin.start();
         }
         try {
             assert conexao != null;
