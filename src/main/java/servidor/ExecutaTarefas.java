@@ -7,10 +7,15 @@ import java.net.Socket;
 
 public class ExecutaTarefas extends Thread{
     private Socket conexao;
+    private boolean executa=true;
 
     public ExecutaTarefas(Socket conexao) throws Exception {
         if (conexao == null) throw new Exception("Conexao nula");
         this.conexao = conexao;
+    }
+
+    private void stoop(){
+        this.executa = false;
     }
     public void run() {
         ObjectInputStream receptor = null;
@@ -32,30 +37,35 @@ public class ExecutaTarefas extends Thread{
             throw new RuntimeException(e);
         }
         Object recebido = null;
-        try {
-            recebido = trabalhador.cloneObjetoRecebido();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        if (recebido instanceof Vendedor) ConectaMongo.salvarVendedor((Vendedor) recebido);
-        else if (recebido instanceof Produto) ConectaMongo.salvarProduto((Produto) recebido);
-        else if (recebido instanceof String) {
-            if (recebido.toString().equals("VENDEDORES")) {
-                try {
-                    trabalhador.enviar(ConectaMongo.buscarVendedores());
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            } else if (recebido.toString().equals("PRODUTOS")) {
-                try {
-                    trabalhador.enviar(ConectaMongo.buscarProdutos());
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
+        while(executa) {
+            try {
+                recebido = trabalhador.cloneObjetoRecebido();
+                System.out.println(recebido);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
-        } else {
-            Thread.yield();
+            if (recebido instanceof Vendedor) {ConectaMongo.salvarVendedor((Vendedor) recebido); this.stoop();}
+            else if (recebido instanceof Produto){ ConectaMongo.salvarProduto((Produto) recebido);this.stoop();}
+            else if (recebido instanceof String) {
+                if (recebido.toString().equals("VENDEDORES")) {
+                    try {
+                        trabalhador.enviar(ConectaMongo.buscarVendedores());
+                        this.stoop();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                } else if (recebido.toString().equals("PRODUTOS")) {
+                    try {
+                        trabalhador.enviar(ConectaMongo.buscarProdutos());
+                        this.stoop();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            } else {
+                Thread.yield();
 
+            }
         }
     }
 
