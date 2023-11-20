@@ -41,14 +41,13 @@ public class ExecutaTarefas extends Thread{
         while(executa) {
             try {
                 recebido = trabalhador.cloneObjetoRecebido();
-                System.out.println(recebido);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
             if (recebido instanceof Vendedor) {
-                ConectaMongo.salvarVendedor((Vendedor) recebido);System.out.println("Vendedor salvo."); this.stoop();}
+                ConectaMongo.salvarVendedor((Vendedor) recebido);System.out.println("Novo vendedor salvo: "+ recebido.toString()); this.stoop();}
             else if (recebido instanceof Produto){
-                ConectaMongo.salvarProduto((Produto) recebido);System.out.println("Produto salvo.");this.stoop();}
+                ConectaMongo.salvarProduto((Produto) recebido);System.out.println("Novo produto salvo:"+recebido.toString());this.stoop();}
             else if (recebido instanceof String) {
                 if (recebido.toString().equals("VENDEDORES")) {
                     try {
