@@ -1,9 +1,10 @@
-package servidor;
+package src;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+
 
 public class ExecutaTarefas extends Thread{
     private Socket conexao;
@@ -44,12 +45,15 @@ public class ExecutaTarefas extends Thread{
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-            if (recebido instanceof Vendedor) {ConectaMongo.salvarVendedor((Vendedor) recebido); this.stoop();}
-            else if (recebido instanceof Produto){ ConectaMongo.salvarProduto((Produto) recebido);this.stoop();}
+            if (recebido instanceof Vendedor) {
+                ConectaMongo.salvarVendedor((Vendedor) recebido);System.out.println("Vendedor salvo."); this.stoop();}
+            else if (recebido instanceof Produto){
+                ConectaMongo.salvarProduto((Produto) recebido);System.out.println("Produto salvo.");this.stoop();}
             else if (recebido instanceof String) {
                 if (recebido.toString().equals("VENDEDORES")) {
                     try {
                         trabalhador.enviar(ConectaMongo.buscarVendedores());
+                        System.out.println("Lista enviada.");
                         this.stoop();
                     } catch (Exception e) {
                         throw new RuntimeException(e);
@@ -57,12 +61,14 @@ public class ExecutaTarefas extends Thread{
                 } else if (recebido.toString().equals("PRODUTOS")) {
                     try {
                         trabalhador.enviar(ConectaMongo.buscarProdutos());
+                        System.out.println("Lista enviada.");
                         this.stoop();
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
                 }
-            } else {
+            }
+            else {
                 Thread.yield();
 
             }

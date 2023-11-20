@@ -1,4 +1,4 @@
-package servidor;
+package src;
 
 public class Produto implements Cloneable{
     private String nome;

@@ -1,11 +1,7 @@
-package servidor;
-
-import netscape.javascript.JSObject;
+package src;
 
 import java.io.*;
 import java.net.*;
-import java.util.*;
-import java.util.concurrent.Semaphore;
 
 public class Comunicacao
 {

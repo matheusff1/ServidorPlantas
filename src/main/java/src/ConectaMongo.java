@@ -1,15 +1,13 @@
-package servidor;
+package src;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.ServerApi;
 import com.mongodb.ServerApiVersion;
 import com.mongodb.client.*;
-import netscape.javascript.JSObject;
 import org.bson.Document;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ConectaMongo {
     private static final String URL_CONEXAO = "mongodb+srv://juliano:juliano777@clustera.p1mjddc.mongodb.net/?retryWrites=true&w=majority";

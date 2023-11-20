@@ -1,4 +1,6 @@
-package servidor;
+package src;
+
+
 
 import java.io.Serializable;
 
@@ -73,6 +75,7 @@ public class Vendedor implements Serializable,Cloneable {
         return new Vendedor(this);
     }
 }
+
 
 
 
