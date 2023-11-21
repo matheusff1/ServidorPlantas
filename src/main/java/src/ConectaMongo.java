@@ -1,9 +1,6 @@
 package src;
 
-import com.mongodb.ConnectionString;
-import com.mongodb.MongoClientSettings;
-import com.mongodb.ServerApi;
-import com.mongodb.ServerApiVersion;
+import com.mongodb.*;
 import com.mongodb.client.*;
 import org.bson.Document;
 
@@ -83,6 +80,26 @@ public class ConectaMongo {
 
         return listaElementos;
     }
+
+    public static ArrayList<Produto> buscarProdutosVendedor(String email) {
+        ArrayList<Produto> listaVendedores = new ArrayList<>();
+
+        BasicDBObject query = new BasicDBObject("vendedor", email);
+
+        try (MongoCursor<Document> cursor = produtos.find(query).iterator()) {
+            while (cursor.hasNext()) {
+                Document documentoProduto = cursor.next();
+
+                Produto produto = new Produto(
+                        documentoProduto.getString("nome")
+                );
+                listaVendedores.add(produto);
+            }
+        }
+
+        return listaVendedores;
+    }
+
 
 
 }

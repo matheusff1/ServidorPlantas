@@ -48,6 +48,7 @@ public class Comunicacao
             ret = receptor.readObject();
             if (ret instanceof Vendedor) return (((Vendedor) ret).clone());
             else if (ret instanceof Produto) return (((Produto) ret).clone());
+            else if(ret instanceof Mensagem) return (((Mensagem) ret).clone());
             else return null;
 
         } catch (IOException | ClassNotFoundException e) {

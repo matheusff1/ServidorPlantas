@@ -1,6 +1,7 @@
 package src;
 
 import java.io.*;
+import java.util.Objects;
 
 
 public class Servidor {
@@ -20,7 +21,8 @@ public class Servidor {
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-        } while(!texto.equalsIgnoreCase("sair"));
-        PABLO.interrupt();
+        } while(!Objects.requireNonNull(texto).equalsIgnoreCase("sair"));
+        PABLO.morre();
+
     }
 }

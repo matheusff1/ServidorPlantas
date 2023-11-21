@@ -48,19 +48,30 @@ public class ExecutaTarefas extends Thread{
                 ConectaMongo.salvarVendedor((Vendedor) recebido);System.out.println("Novo vendedor salvo: "+ recebido.toString()); this.stoop();}
             else if (recebido instanceof Produto){
                 ConectaMongo.salvarProduto((Produto) recebido);System.out.println("Novo produto salvo:"+recebido.toString());this.stoop();}
-            else if (recebido instanceof String) {
-                if (recebido.toString().equals("VENDEDORES")) {
-                    try {
-                        trabalhador.enviar(ConectaMongo.buscarVendedores());
-                        System.out.println("Lista enviada.");
-                        this.stoop();
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
+            else if (recebido instanceof Mensagem) {
+                if (((Mensagem) recebido).isTipo()){
+                    if (((Mensagem) recebido).getConteudo().equals("VENDEDORES")) {
+                        try {
+                            trabalhador.enviar(ConectaMongo.buscarVendedores());
+                            System.out.println("Lista enviada.");
+                            this.stoop();
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                    } else if (recebido.toString().equals("PRODUTOS")) {
+                        try {
+                            trabalhador.enviar(ConectaMongo.buscarProdutos());
+                            System.out.println("Lista enviada.");
+                            this.stoop();
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
                     }
-                } else if (recebido.toString().equals("PRODUTOS")) {
+                }
+                else{
                     try {
-                        trabalhador.enviar(ConectaMongo.buscarProdutos());
-                        System.out.println("Lista enviada.");
+                        trabalhador.enviar(ConectaMongo.buscarProdutosVendedor(((Mensagem) recebido).getConteudo()));
+                        System.out.println("Lista enviada");
                         this.stoop();
                     } catch (Exception e) {
                         throw new RuntimeException(e);
