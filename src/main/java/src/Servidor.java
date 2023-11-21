@@ -13,16 +13,19 @@ public class Servidor {
         int porta = Servidor.PORTA;
         IniciaConexao PABLO = new IniciaConexao(porta);
         PABLO.start();
-
+        System.out.println("O servidor ligado, digite sair para deligá-lo.");
         do {
             try {
-                System.out.println("O servidor ligado, digite sair para deligá-lo.");
                 texto =teclado.readLine();
+                if(!texto.equalsIgnoreCase("sair")){
+                    System.err.println("Comando inválido, digite sair para desligar o servidor. ");
+                }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         } while(!Objects.requireNonNull(texto).equalsIgnoreCase("sair"));
+        System.out.println("Servidor desligado.");
         PABLO.morre();
-
+        System.exit(0);
     }
 }
