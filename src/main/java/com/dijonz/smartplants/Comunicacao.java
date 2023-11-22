@@ -1,4 +1,4 @@
-package src;
+package com.dijonz.smartplants;
 
 import java.io.*;
 import java.net.*;
@@ -37,7 +37,7 @@ public class Comunicacao
         }
         catch (IOException erro)
         {
-            throw new Exception ("Erro de transmissao");
+            throw new Exception ("Erro de transmissao",erro);
         }
     }
 

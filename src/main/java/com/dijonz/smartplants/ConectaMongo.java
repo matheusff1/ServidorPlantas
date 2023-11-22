@@ -1,4 +1,4 @@
-package src;
+package com.dijonz.smartplants;
 
 import com.mongodb.*;
 import com.mongodb.client.*;

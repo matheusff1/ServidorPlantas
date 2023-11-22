@@ -1,4 +1,4 @@
-package src;
+package com.dijonz.smartplants;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

@@ -1,4 +1,4 @@
-package src;
+package com.dijonz.smartplants;
 
 public class Produto implements Cloneable{
     private String nome;
