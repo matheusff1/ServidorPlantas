@@ -100,6 +100,30 @@ public class ConectaMongo {
         return listaVendedores;
     }
 
+    public static Vendedor buscarUsuarioVendedor(String email) {
+        Vendedor vendedor =null;
+
+        BasicDBObject query = new BasicDBObject("email", email);
+
+        try (MongoCursor<Document> cursor = produtos.find(query).iterator()) {
+            while (cursor.hasNext()) {
+                Document documentoVendedor = cursor.next();
+
+                vendedor= new Vendedor(
+                        documentoVendedor.getString("nome"),
+                        documentoVendedor.getString("email"),
+                        documentoVendedor.getString("senha"),
+                        documentoVendedor.getString("telefone"),
+                        documentoVendedor.getString("local"),
+                        documentoVendedor.getString("fotoUri")
+                );
+
+            }
+        }
+
+        return vendedor;
+    }
+
 
 
 }

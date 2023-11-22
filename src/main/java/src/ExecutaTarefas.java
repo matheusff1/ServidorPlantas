@@ -58,7 +58,7 @@ public class ExecutaTarefas extends Thread{
                         } catch (Exception e) {
                             throw new RuntimeException(e);
                         }
-                    } else if (recebido.toString().equals("PRODUTOS")) {
+                    } else if (((Mensagem) recebido).getConteudo().equals("PRODUTOS")) {
                         try {
                             trabalhador.enviar(ConectaMongo.buscarProdutos());
                             System.out.println("Lista enviada.");
@@ -66,6 +66,14 @@ public class ExecutaTarefas extends Thread{
                         } catch (Exception e) {
                             throw new RuntimeException(e);
                         }
+                    } else if (((Mensagem) recebido).getConteudo().equals("LOGIN")) {
+                        try {
+                            trabalhador.enviar(ConectaMongo.buscarUsuarioVendedor(((Mensagem) recebido).getEmail()));
+                            System.out.println("Uusário enviado.");
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                        System.out.println("Lista enviada.");
                     }
                 }
                 else{
