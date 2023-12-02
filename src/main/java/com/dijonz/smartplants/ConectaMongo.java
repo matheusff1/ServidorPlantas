@@ -40,7 +40,8 @@ public class ConectaMongo {
 
     public static void salvarProduto(Produto produto) {
         Document documentoVendedor = new Document()
-                .append("nome", produto.getNome());
+                .append("nome", produto.getNome())
+                .append("preço",produto.getPreco());
 
         produtos.insertOne(documentoVendedor);
     }
