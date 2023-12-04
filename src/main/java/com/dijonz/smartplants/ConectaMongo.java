@@ -32,8 +32,8 @@ public class ConectaMongo {
                 .append("email", vendedor.getEmail())
                 .append("senha", vendedor.getSenha())
                 .append("telefone", vendedor.getTelefone())
-                .append("local", vendedor.getLocal())
-                .append("fotoUri", vendedor.getFotoUri());
+                .append("local", vendedor.getLocal());
+                //.append("fotoUri", vendedor.getFotoUri()
 
         vendedores.insertOne(documentoVendedor);
     }
@@ -58,8 +58,8 @@ public class ConectaMongo {
                         documentoVendedor.getString("email"),
                         documentoVendedor.getString("senha"),
                         documentoVendedor.getString("telefone"),
-                        documentoVendedor.getString("local"),
-                        documentoVendedor.getString("fotoUri")
+                        documentoVendedor.getString("local")
+                        //documentoVendedor.getString("fotoUri")
                 );
                 listaVendedores.add(vendedor);
             }
@@ -75,7 +75,7 @@ public class ConectaMongo {
             while (cursor.hasNext()) {
                 Document elemento = cursor.next();
 
-                listaElementos.add(new Produto(elemento.getString("nome")));
+                listaElementos.add(new Produto(elemento.getString("nome"),elemento.getString("preço")));
             }
         }
 
@@ -92,7 +92,7 @@ public class ConectaMongo {
                 Document documentoProduto = cursor.next();
 
                 Produto produto = new Produto(
-                        documentoProduto.getString("nome")
+                        documentoProduto.getString("nome"), documentoProduto.getString("preço")
                 );
                 listaVendedores.add(produto);
             }
@@ -115,8 +115,8 @@ public class ConectaMongo {
                         documentoVendedor.getString("email"),
                         documentoVendedor.getString("senha"),
                         documentoVendedor.getString("telefone"),
-                        documentoVendedor.getString("local"),
-                        documentoVendedor.getString("fotoUri")
+                        documentoVendedor.getString("local")
+                        //documentoVendedor.getString("fotoUri")
                 );
 
             }

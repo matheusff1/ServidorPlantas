@@ -11,15 +11,15 @@ public class Vendedor implements Serializable,Cloneable {
     private final String senha;
     private final String telefone;
     private final String local;
-    private final String fotoUri;
+    //private final String fotoUri;
 
-    public Vendedor(String nome, String email, String senha, String telefone, String local, String fotoUri) {
+    public Vendedor(String nome, String email, String senha, String telefone, String local) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.telefone = telefone;
         this.local = local;
-        this.fotoUri = fotoUri;
+        //this.fotoUri = fotoUri;
     }
 
 
@@ -32,7 +32,8 @@ public class Vendedor implements Serializable,Cloneable {
                 ", senha='" + senha + '\'' +
                 ", telefone='" + telefone + '\'' +
                 ", local='" + local + '\'' +
-                ", fotoUri='" + fotoUri + '\'' +
+                //", fotoUri='" + fotoUri + '\''
+                +
                 '}';
     }
 
@@ -40,7 +41,7 @@ public class Vendedor implements Serializable,Cloneable {
         Vendedor copia = (Vendedor) obj;
         this.nome = copia.getNome();
         this.email= copia.getEmail();
-        this.fotoUri=copia.getFotoUri();
+        //this.fotoUri=copia.getFotoUri();
         this.local = copia.getLocal();
         this.senha = copia.getSenha();
         this.telefone = copia.getTelefone();
@@ -50,9 +51,9 @@ public class Vendedor implements Serializable,Cloneable {
         return email;
     }
 
-    public String getFotoUri() {
-        return fotoUri;
-    }
+    //public String getFotoUri() {
+    //    return fotoUri;
+    //}
 
     public String getLocal() {
         return local;
