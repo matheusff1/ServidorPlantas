@@ -33,6 +33,7 @@ public class ConectaMongo {
 
 
     // Método para salvar um vendedor no MongoDB
+    // Recebe objeto Vendedor e salva no MongoDB na coleção vendedores
     public static void salvarVendedor(Vendedor vendedor) {
         Document documentoVendedor = new Document()
                 .append("nome", vendedor.getNome())
@@ -46,6 +47,7 @@ public class ConectaMongo {
     }
 
     // Método para salvar um produto no MongoDB
+    // Recebe objeto Produto e salva no MongoDB na coleção produtos
     public static void salvarProduto(Produto produto) {
         Document documentoVendedor = new Document()
                 .append("nome", produto.getNome())

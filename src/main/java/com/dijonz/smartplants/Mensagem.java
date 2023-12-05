@@ -13,11 +13,11 @@ public class Mensagem implements Serializable,Cloneable{
 
     // true para retorno de listas completas e login
     // e false para retorno de listas de um vendedor especifico
-    private String conteudo;
+    private String conteudo; // conteúdo da mensagem
 
     // email do vendedor ou "VENDEDORES" para lista de vendedores e
     // "PRODUTOS" para lista de produtos, "LOGIN" para pedir um usuário
-    private String email;
+    private String email; // email associado à mensagem
 
     // Construtor para mensagens sem email
     public Mensagem(Boolean tipo,String conteudo){

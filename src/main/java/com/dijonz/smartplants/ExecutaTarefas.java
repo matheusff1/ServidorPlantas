@@ -7,8 +7,8 @@ import java.net.Socket;
 
 // Classe que executa tarefas em uma thread para processar operações recebidas do cliente
 public class ExecutaTarefas extends Thread{
-    private Socket conexao;
-    private boolean executa=true;
+    private Socket conexao; // representa conexão com o cliente
+    private boolean executa=true; // controle de execução da thread
 
     // Construtor que recebe a conexão como parâmetro
     public ExecutaTarefas(Socket conexao) throws Exception {
@@ -45,15 +45,20 @@ public class ExecutaTarefas extends Thread{
         // Loop principal da thread
         while(executa) {
             try {
-                recebido = trabalhador.cloneObjetoRecebido();
+                recebido = trabalhador.cloneObjetoRecebido(); // tenta receber objeto
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
+
             // Verifica o tipo do objeto recebido e realiza a operação correspondente e fecha a thread
+
+            // se recebido for instância de vendedor, salva vendedor usando método salvarVendedor de ConectaMongo
             if (recebido instanceof Vendedor) {
                 ConectaMongo.salvarVendedor((Vendedor) recebido);System.out.println("Novo vendedor salvo: "+ recebido.toString()); this.stoop();}
+            // se recebido for instância de produto, salva produto usando método salvarProduto de ConectaMongo
             else if (recebido instanceof Produto){
                 ConectaMongo.salvarProduto((Produto) recebido);System.out.println("Novo produto salvo:"+recebido.toString());this.stoop();}
+            // se recebido for instância de mensagem, verifica o tipo da mensagem
             else if (recebido instanceof Mensagem) {
                 if (((Mensagem) recebido).isTipo()){
                     if (((Mensagem) recebido).getConteudo().equals("VENDEDORES")) {

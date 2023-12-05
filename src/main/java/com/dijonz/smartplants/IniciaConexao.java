@@ -55,8 +55,8 @@ public class IniciaConexao extends Thread{
             assert conexao != null;
             PrintWriter escrita = new  PrintWriter(conexao.getOutputStream());//transmissor de string
             escrita.println("conexao interrompida");
-            escrita.flush();
-            conexao.close();
+            escrita.flush(); // envia
+            conexao.close(); // fecha conexão com o cliente
             this.morre(); // Chama o método para encerrar a execução da thread
         } catch (IOException e) {
             throw new RuntimeException(e);
