@@ -13,10 +13,11 @@ public class Servidor {
         String texto=null;
         int porta = Servidor.PORTA;
 
-        // Inicia a thread para aceitar conexões de clientes na porta especificada
-        IniciaConexao PABLO = new IniciaConexao(porta);
-        PABLO.start();
-        // Mensagem informando que o servidor está ligado e aguardando comando para desligar
+
+        IniciaConexao PABLO = new IniciaConexao(porta); //Cria uma instância da classe `IniciaConexao` passando
+        // a porta como parâmetro e atribui a variável `PABLO`.
+        PABLO.start(); // Inicia a thread para aceitar conexões de clientes na porta especificada
+
         System.out.println("O servidor ligado, digite sair para deligá-lo.");
 
         // Loop para aguardar o comando para desligar o servidor
@@ -31,7 +32,6 @@ public class Servidor {
             }
         } while(!Objects.requireNonNull(texto).equalsIgnoreCase("sair"));
 
-        // Mensagem indicando que o servidor está sendo desligado
         System.out.println("Servidor desligado.");
 
         // Chama o método para interromper a execução da thread de conexão
